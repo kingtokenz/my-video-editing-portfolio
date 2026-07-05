@@ -135,6 +135,19 @@
   .p-price{ font-family:'Manrope',sans-serif; font-weight:800; font-size:16px; }
   .p-spec{ font-size:12px; color:var(--body); margin-top:3px; }
 
+  /* ---------- REVIEWS ---------- */
+  .reviews{ background:var(--paper-alt); }
+  .review-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .review-card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:28px 26px; display:flex; flex-direction:column; }
+  .stars{ display:flex; gap:3px; margin-bottom:16px; color:var(--accent); }
+  .stars svg{ width:15px; height:15px; }
+  .review-quote{ font-size:14.5px; color:var(--ink-2); line-height:1.65; margin-bottom:22px; flex:1; }
+  .review-who{ display:flex; align-items:center; gap:12px; }
+  .review-avatar{ width:38px; height:38px; border-radius:50%; background:var(--accent); color:#fff; font-family:'Manrope',sans-serif; font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .review-name{ font-size:13.5px; font-weight:700; }
+  .review-role{ font-size:12px; color:var(--body); }
+  .reviews-note{ margin-top:22px; font-size:13px; color:var(--body); }
+
   /* ---------- PROCESS (dark) ---------- */
   .process{ background:var(--ink); color:#fff; }
   .process .eyebrow{ color:#D3A57E; }
@@ -222,6 +235,7 @@
     <div class="nav-links">
       <a href="#" class="active">Home</a>
       <a href="#work">Work</a>
+      <a href="#reviews">Reviews</a>
       <a href="#process">Process</a>
       <a href="#pricing">Pricing</a>
       <a href="#contact">Contact</a>
@@ -244,7 +258,7 @@
         <source src="assets/transformation.mp4" type="video/mp4">
       </video>
       <div class="hero-caption">
-        <div class="price">$684,000</div>
+        <div class="price">GH₵8,900,000</div>
         <div class="addr">142 Wren Hollow Ct · 4 bd · 3 ba</div>
       </div>
     </div>
@@ -313,7 +327,7 @@
     </div>
     <div>
       <svg class="stat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="24" r="16"/><path d="M16 16l16 16M32 16L16 32"/></svg>
-      <div class="stat-num">$0</div>
+      <div class="stat-num">GH₵0</div>
       <div class="stat-label">Reshoot cost</div>
     </div>
     <div>
@@ -347,7 +361,7 @@
             <rect x="160" y="90" width="80" height="140" fill="#161611"/>
           </svg>
         </div>
-        <div class="p-body"><div class="p-price">$412,500</div><div class="p-spec">3 BD · 2 BA · 1,840 sqft</div></div>
+        <div class="p-body"><div class="p-price">GH₵5,400,000</div><div class="p-spec">3 BD · 2 BA · 1,840 sqft</div></div>
       </div>
       <div class="p-card">
         <div class="p-media">
@@ -358,7 +372,7 @@
             <circle cx="150" cy="110" r="40" fill="#8C5A3B" opacity="0.55"/>
           </svg>
         </div>
-        <div class="p-body"><div class="p-price">$899,000</div><div class="p-spec">5 BD · 4 BA · 3,210 sqft</div></div>
+        <div class="p-body"><div class="p-price">GH₵11,700,000</div><div class="p-spec">5 BD · 4 BA · 3,210 sqft</div></div>
       </div>
       <div class="p-card">
         <div class="p-media">
@@ -370,7 +384,7 @@
             <rect x="220" y="220" width="60" height="80" fill="#3f3d33"/>
           </svg>
         </div>
-        <div class="p-body"><div class="p-price">$268,000</div><div class="p-spec">2 BD · 1 BA · 980 sqft</div></div>
+        <div class="p-body"><div class="p-price">GH₵3,500,000</div><div class="p-spec">2 BD · 1 BA · 980 sqft</div></div>
       </div>
       <div class="p-card">
         <div class="p-media">
@@ -381,10 +395,65 @@
             <rect x="130" y="170" width="40" height="80" fill="#8C5A3B" opacity="0.7"/>
           </svg>
         </div>
-        <div class="p-body"><div class="p-price">$540,000</div><div class="p-spec">4 BD · 3 BA · 2,410 sqft</div></div>
+        <div class="p-body"><div class="p-price">GH₵7,000,000</div><div class="p-spec">4 BD · 3 BA · 2,410 sqft</div></div>
       </div>
     </div>
     <p style="margin-top:22px; font-size:13px; color:var(--body);">Placeholder set — swap for delivered client reels as they come in.</p>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="section-head center">
+      <div class="eyebrow">What agents say</div>
+      <div class="eyebrow-underline"></div>
+      <h2>Trusted by agents who post every week.</h2>
+    </div>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="stars">
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+        </div>
+        <p class="review-quote">"I sent through photos from a listing I'd already had up for weeks with no bites. The reel went out and I had three viewing requests within two days."</p>
+        <div class="review-who">
+          <div class="review-avatar">A</div>
+          <div><div class="review-name">Agent name</div><div class="review-role">Real estate agent, brokerage</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+        </div>
+        <p class="review-quote">"The retainer makes my workflow simple. I forward photos the same day I list, and the reel is ready before I've finished the paperwork."</p>
+        <div class="review-who">
+          <div class="review-avatar">B</div>
+          <div><div class="review-name">Agent name</div><div class="review-role">Real estate agent, brokerage</div></div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+          <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.6,7 19,7.6 14.2,11.9 15.6,18.2 10,14.8 4.4,18.2 5.8,11.9 1,7.6 7.4,7"/></svg>
+        </div>
+        <p class="review-quote">"We white-labelled this for our whole brokerage. Every agent's listings now go out with a reel, and it barely added anything to our workflow."</p>
+        <div class="review-who">
+          <div class="review-avatar">C</div>
+          <div><div class="review-name">Broker name</div><div class="review-role">Brokerage owner</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="reviews-note">Placeholder reviews — swap in real agent quotes once you've delivered your first few listings.</p>
   </div>
 </section>
 
@@ -431,14 +500,14 @@
     <div class="pricing-grid">
       <div class="plan">
         <div class="plan-name">Per listing</div>
-        <div class="plan-price">$95<span>/ listing</span></div>
+        <div class="plan-price">GH₵950<span>/ listing</span></div>
         <p class="plan-desc">For agents who want to try it on one property first.</p>
         <ul><li>1 vertical + 1 square reel</li><li>Price &amp; spec overlay</li><li>48 hour delivery</li></ul>
         <a href="#contact" class="btn btn-ghost">Book one listing</a>
       </div>
       <div class="plan featured">
         <div class="plan-name">Monthly retainer</div>
-        <div class="plan-price">$449<span>/ month</span></div>
+        <div class="plan-price">GH₵4,500<span>/ month</span></div>
         <p class="plan-desc">For agents listing 4+ properties a month.</p>
         <ul><li>Up to 6 listings / month</li><li>All 3 formats, every listing</li><li>Your logo &amp; brand colors</li><li>Priority 24 hour delivery</li></ul>
         <a href="#contact" class="btn btn-primary">Start retainer</a>
