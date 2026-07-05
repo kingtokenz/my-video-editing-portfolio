@@ -3,309 +3,204 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reelstate — Listing photos, turned into video</title>
+<title>Reelstate — Video for listings</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Zilla+Slab:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#E9DFC0;
-    --paper-deep:#DCD0A2;
-    --card:#F3ECD3;
-    --ink:#211C15;
-    --ink-soft:#5B5340;
-    --stamp:#B23A2E;
-    --stamp-dim:#8F2E24;
-    --flag:#43613F;
-    --line:#C6B587;
-    --line-soft:#D9CB9E;
+    --paper:#F8F6F1;
+    --paper-alt:#F2EEE5;
+    --card:#FFFFFF;
+    --ink:#211E1A;
+    --ink-2:#2B2723;
+    --body:#6E695F;
+    --accent:#8C5A3B;
+    --accent-dark:#6E4429;
+    --line:#E4DFD2;
+    --radius:8px;
   }
-
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
   }
-
   body{
     background:var(--paper);
-    background-image:
-      radial-gradient(rgba(33,28,21,0.035) 1px, transparent 1px);
-    background-size: 3px 3px;
     color:var(--ink);
     font-family:'Inter', sans-serif;
-    line-height:1.55;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
   a{color:inherit;}
-  ::selection{background:var(--stamp); color:var(--paper);}
-  :focus-visible{outline:2px solid var(--stamp); outline-offset:3px;}
+  ::selection{background:var(--accent); color:#fff;}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+  .wrap{max-width:1200px; margin:0 auto; padding:0 40px;}
 
-  .wrap{max-width:1160px; margin:0 auto; padding:0 32px;}
+  h1,h2,h3{ font-family:'Manrope', sans-serif; font-weight:800; letter-spacing:-0.02em; color:var(--ink); }
 
-  .stamp-label{
-    font-family:'Special Elite', monospace;
-    font-size:12px;
-    letter-spacing:0.06em;
-    color:var(--stamp);
+  .eyebrow{
+    font-family:'Inter', sans-serif;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .eyebrow-underline{
+    width:34px; height:2px; background:var(--accent);
+    margin-top:10px;
+  }
+  .center .eyebrow-underline{ margin-left:auto; margin-right:auto; }
+
+  .btn{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:13.5px;
+    letter-spacing:0.02em;
+    padding:14px 24px;
+    border-radius:6px;
+    text-decoration:none;
     display:inline-flex;
     align-items:center;
     gap:9px;
-    transform:rotate(-1deg);
-  }
-  .stamp-label::before{content:'●'; font-size:8px;}
-
-  h1,h2,h3{
-    font-family:'Zilla Slab', serif;
-    font-weight:700;
-    line-height:1.02;
-    letter-spacing:-0.01em;
-  }
-
-  /* ---------- perforation seam ---------- */
-  .perf{
-    height:17px;
-    background-image: radial-gradient(circle at 8px 8px, var(--paper) 6.5px, transparent 7.2px);
-    background-size:16px 17px;
-    background-repeat:repeat-x;
-    background-position:center;
-  }
-  .perf.on-deep{background-image: radial-gradient(circle at 8px 8px, var(--paper-deep) 6.5px, transparent 7.2px);}
-  .perf.on-ink{background-image: radial-gradient(circle at 8px 8px, var(--ink) 6.5px, transparent 7.2px);}
-  .band{ padding-top:0; }
-  .band-fill{ height:10px; }
-
-  /* ---------- NAV ---------- */
-  header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(233,223,192,0.92);
-    backdrop-filter:blur(6px);
-    border-bottom:2px solid var(--ink);
-  }
-  nav.wrap{ display:flex; align-items:center; justify-content:space-between; height:74px; }
-  .logo{
-    font-family:'Zilla Slab', serif;
-    font-weight:700;
-    font-size:22px;
-    transform:rotate(-1.5deg);
-    display:inline-block;
-    color:var(--ink);
-    text-shadow: 1px 1px 0 rgba(178,58,46,0.25);
-  }
-  .logo span{color:var(--stamp);}
-  .nav-links{ display:flex; align-items:center; gap:32px; font-size:14px; font-weight:500; }
-  .nav-links a{ text-decoration:none; color:var(--ink-soft); transition:color .2s; }
-  .nav-links a:hover{ color:var(--ink); }
-
-  .btn{
-    font-family:'IBM Plex Mono', monospace;
-    font-weight:600;
-    font-size:13px;
-    letter-spacing:0.02em;
-    padding:11px 20px;
-    text-decoration:none;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
     cursor:pointer;
-    border:2px solid var(--ink);
-    transition:transform .15s ease, background .2s ease, color .2s ease;
+    border:1.5px solid transparent;
+    transition:background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;
   }
   .btn:active{transform:translateY(1px);}
-  .btn-primary{background:var(--ink); color:var(--paper);}
-  .btn-primary:hover{background:var(--stamp); border-color:var(--stamp); color:#fff;}
-  .btn-ghost{background:transparent; color:var(--ink);}
-  .btn-ghost:hover{background:var(--ink); color:var(--paper);}
+  .btn-primary{ background:var(--accent); color:#fff; text-transform:uppercase; }
+  .btn-primary:hover{ background:var(--accent-dark); }
+  .btn-ghost{ border-color:var(--ink); color:var(--ink); text-transform:uppercase; }
+  .btn-ghost:hover{ background:var(--ink); color:#fff; }
+  .btn-light{ background:#fff; color:var(--ink); text-transform:uppercase; }
+  .btn-light:hover{ background:var(--accent); color:#fff; }
 
-  /* ---------- HERO / COVER SHEET ---------- */
-  .hero{ padding:64px 0 0; }
-  .cover-sheet{
-    border:2px solid var(--ink);
-    background:var(--card);
-    padding:44px 44px 0;
-    position:relative;
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:44px;
-  }
-  .cover-corner{
-    position:absolute; top:-14px; right:38px;
-    background:var(--stamp); color:#fff;
-    font-family:'Special Elite', monospace;
-    font-size:12px;
-    padding:8px 14px;
-    transform:rotate(3deg);
-    box-shadow:0 3px 0 rgba(0,0,0,0.15);
-  }
-  .hero h1{ font-size:clamp(38px,4.8vw,58px); margin:16px 0 18px; }
-  .hero h1 em{ font-style:normal; color:var(--stamp); }
-  .hero p.lede{ font-size:17px; color:var(--ink-soft); max-width:44ch; margin-bottom:28px; }
-  .hero-ctas{ display:flex; gap:12px; margin-bottom:8px; }
+  /* ---------- NAV ---------- */
+  header{ position:sticky; top:0; z-index:50; background:rgba(248,246,241,0.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
+  nav.wrap{ display:flex; align-items:center; justify-content:space-between; height:86px; }
+  .logo{ display:flex; align-items:center; gap:12px; }
+  .logo-text{ display:flex; flex-direction:column; line-height:1.1; }
+  .logo-main{ font-family:'Manrope',sans-serif; font-weight:800; font-size:19px; letter-spacing:-0.01em; }
+  .logo-sub{ font-size:9.5px; letter-spacing:0.14em; color:var(--body); font-weight:600; }
+  .nav-links{ display:flex; align-items:center; gap:38px; font-size:13px; font-weight:600; letter-spacing:0.03em; text-transform:uppercase; }
+  .nav-links a{ text-decoration:none; color:var(--ink); position:relative; padding-bottom:6px; }
+  .nav-links a.active::after{ content:''; position:absolute; left:0; right:0; bottom:0; height:2px; background:var(--accent); }
+  .nav-links a:hover{ color:var(--accent); }
 
-  .spec-row{
-    display:flex; gap:0;
-    border-top:1px dashed var(--line);
-    margin-top:26px;
-  }
-  .spec-cell{
-    flex:1; padding:16px 14px 16px 0;
-    border-right:1px dashed var(--line);
-  }
-  .spec-cell:last-child{border-right:none;}
-  .spec-num{ font-family:'IBM Plex Mono', monospace; font-size:20px; font-weight:600; }
-  .spec-label{ font-family:'Special Elite', monospace; font-size:10.5px; color:var(--ink-soft); text-transform:uppercase; margin-top:4px; }
+  /* ---------- HERO ---------- */
+  .hero{ padding:64px 0 90px; }
+  .hero-grid{ display:grid; grid-template-columns:0.95fr 1.05fr; gap:56px; align-items:center; }
+  .hero h1{ font-size:clamp(38px,4.6vw,54px); line-height:1.06; margin-bottom:22px; }
+  .hero p.lede{ font-size:16.5px; color:var(--body); max-width:42ch; margin-bottom:30px; }
+  .hero-media{ position:relative; border-radius:20px; overflow:hidden; aspect-ratio:6/7; background:#141210; box-shadow:0 30px 60px -25px rgba(33,30,26,0.35); }
+  .hero-media video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-tag{ position:absolute; top:18px; left:18px; background:rgba(255,255,255,0.92); color:var(--ink); font-size:11.5px; font-weight:700; letter-spacing:0.06em; padding:7px 12px; border-radius:20px; }
+  .hero-caption{ position:absolute; bottom:0; left:0; right:0; padding:22px 20px 18px; background:linear-gradient(to top, rgba(0,0,0,0.68), transparent); color:#fff; }
+  .hero-caption .price{ font-family:'Manrope',sans-serif; font-weight:800; font-size:20px; }
+  .hero-caption .addr{ font-size:12px; opacity:0.85; margin-top:2px; }
 
-  /* -- demo frame in hero -- */
-  .listing-photo{
-    position:relative;
-    border:2px solid var(--ink);
-    background:#111;
-    aspect-ratio:9/12;
-    overflow:hidden;
-  }
-  .demo-badge{
-    position:absolute; top:12px; left:12px; z-index:2;
-    background:var(--stamp); color:#fff;
-    font-family:'Special Elite', monospace;
-    font-size:10.5px; letter-spacing:0.06em;
-    padding:5px 10px;
-    transform:rotate(-2deg);
-  }
-  .demo-info{
-    position:absolute; bottom:0; left:0; right:0; z-index:2;
-    padding:14px 14px 12px;
-    background:linear-gradient(to top, rgba(0,0,0,0.78), transparent);
-    color:#fff;
-  }
-  .demo-price{ font-family:'Zilla Slab', serif; font-size:21px; font-weight:700; }
-  .demo-addr{ font-family:'IBM Plex Mono', monospace; font-size:11px; opacity:0.85; margin-top:3px; }
+  /* ---------- APPROACH ---------- */
+  section{ padding:88px 0; }
+  .section-head{ text-align:center; max-width:640px; margin:0 auto 56px; }
+  .section-head h2{ font-size:clamp(28px,3.2vw,38px); margin-top:12px; }
+  .approach-grid{ display:grid; grid-template-columns:repeat(4,1fr); }
+  .approach-item{ text-align:center; padding:0 26px; border-left:1px solid var(--line); }
+  .approach-item:first-child{ border-left:none; }
+  .approach-icon{ width:46px; height:46px; margin:0 auto 20px; color:var(--accent); }
+  .approach-item h3{ font-size:16.5px; margin-bottom:10px; }
+  .approach-item p{ font-size:13.5px; color:var(--body); }
 
-  /* -- tear tabs -- */
-  .tear-tabs{
-    display:flex; justify-content:center; gap:0;
-    margin-top:30px;
-    padding-top:2px;
-    border-top:2px dashed var(--ink);
-    position:relative;
-  }
-  .tear-tabs::before{
-    content:'✂';
-    position:absolute; left:-2px; top:-13px;
-    font-size:14px; color:var(--ink-soft);
-  }
-  .tab{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    color:var(--ink-soft);
-    border-right:1px dashed var(--line);
-    padding:12px 16px;
-    writing-mode:vertical-rl;
-    text-orientation:mixed;
-    flex:1;
-    text-align:center;
-    letter-spacing:0.04em;
-  }
-  .tab:last-child{border-right:none;}
-  .tab.pull{
-    background:var(--ink);
-    color:var(--paper);
-    text-decoration:none;
-    transform:translateY(10px) rotate(1.2deg);
-    box-shadow:0 6px 0 rgba(0,0,0,0.12);
-    transition:transform .18s ease;
-  }
-  .tab.pull:hover{ transform:translateY(16px) rotate(1.2deg); background:var(--stamp); }
+  /* ---------- FEATURED / SHOWCASE ---------- */
+  .showcase{ background:var(--paper-alt); }
+  .showcase-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .showcase-media{ border-radius:16px; overflow:hidden; aspect-ratio:16/10; background:#141210; }
+  .showcase-media video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .showcase-text h2{ font-size:clamp(26px,3vw,34px); margin:14px 0 16px; }
+  .showcase-text p{ color:var(--body); font-size:15.5px; max-width:44ch; margin-bottom:28px; }
 
-  /* ---------- SECTION shared ---------- */
-  section{ padding:76px 0; }
-  .section-head{ max-width:620px; margin-bottom:48px; }
-  .section-head h2{ font-size:clamp(28px,3.2vw,40px); margin-top:14px; }
-  .section-head p{ color:var(--ink-soft); font-size:16px; margin-top:12px; max-width:52ch; }
+  /* ---------- STATS ---------- */
+  .stats{ padding:56px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .stats-grid{ display:grid; grid-template-columns:repeat(5,1fr); text-align:center; gap:20px; }
+  .stat-icon{ width:30px; height:30px; margin:0 auto 14px; color:var(--accent); }
+  .stat-num{ font-family:'Manrope',sans-serif; font-weight:800; font-size:26px; }
+  .stat-label{ font-size:12.5px; color:var(--body); margin-top:4px; }
 
-  /* ---------- TRANSFORMATION (kraft deep band) ---------- */
-  .transform{ background:var(--paper-deep); }
-  .ba-row{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:26px; }
-  .ba-panel{ border:2px solid var(--ink); background:var(--card); padding:24px; }
-  .ba-tag{ font-family:'Special Elite', monospace; font-size:11px; color:var(--ink-soft); }
-  .ba-tag b{ color:var(--ink); display:block; font-size:23px; font-family:'Zilla Slab',serif; font-weight:700; margin-top:5px; letter-spacing:0; }
-  .ba-thumbs{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:16px; }
-  .ba-thumbs .ph{ aspect-ratio:1; border:1px solid var(--line); background-size:cover; background-position:center; }
-  .ba-arrow{
-    width:48px; height:48px; border:2px solid var(--ink);
-    background:var(--ink); color:var(--paper);
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0; font-family:'IBM Plex Mono',monospace;
-  }
-  .reel-preview{ margin-top:16px; border:1px solid var(--line); background:#111; overflow:hidden; }
-  .reel-preview video{ display:block; width:100%; height:100%; object-fit:cover; }
+  /* ---------- PORTFOLIO ---------- */
+  .portfolio-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+  .p-card{ border-radius:14px; overflow:hidden; background:var(--card); box-shadow:0 1px 0 var(--line); border:1px solid var(--line); }
+  .p-media{ aspect-ratio:9/12; background:#141210; }
+  .p-media svg{ width:100%; height:100%; display:block; }
+  .p-body{ padding:14px 16px 16px; }
+  .p-price{ font-family:'Manrope',sans-serif; font-weight:800; font-size:16px; }
+  .p-spec{ font-size:12px; color:var(--body); margin-top:3px; }
 
-  /* ---------- PORTFOLIO / SPEC SHEETS ---------- */
-  .portfolio-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:18px; }
-  .sheet{ border:2px solid var(--ink); background:var(--card); }
-  .sheet .listing-photo{ border:none; border-bottom:2px solid var(--ink); aspect-ratio:9/12; }
-  .sheet-data{ padding:12px 12px 14px; }
-  .sheet-price{ font-family:'Zilla Slab',serif; font-weight:700; font-size:16px; }
-  .sheet-spec{ font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--ink-soft); margin-top:3px; }
-  .portfolio-note{ margin-top:24px; font-family:'Special Elite', monospace; font-size:12.5px; color:var(--ink-soft); }
+  /* ---------- PROCESS (dark) ---------- */
+  .process{ background:var(--ink); color:#fff; }
+  .process .eyebrow{ color:#D3A57E; }
+  .process .eyebrow-underline{ background:#D3A57E; }
+  .process .section-head p{ color:#B7B0A5; }
+  .process-row{ display:flex; align-items:flex-start; justify-content:center; max-width:900px; margin:0 auto; }
+  .p-step{ flex:1; text-align:center; padding:0 18px; position:relative; }
+  .p-connector{ flex:0 0 auto; width:70px; height:1px; border-top:2px dotted rgba(255,255,255,0.28); margin-top:29px; }
+  .p-circle{ width:58px; height:58px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; margin:0 auto 18px; }
+  .p-circle svg{ width:24px; height:24px; color:#fff; }
+  .p-step .num{ font-size:12px; color:#D3A57E; font-weight:700; letter-spacing:0.06em; margin-bottom:8px; }
+  .p-step h3{ color:#fff; font-size:17px; margin-bottom:8px; }
+  .p-step p{ color:#B7B0A5; font-size:13.5px; }
 
-  /* ---------- PROCESS (ink band) ---------- */
-  .process{ background:var(--ink); color:var(--paper); }
-  .process .stamp-label{ color:#D9A98F; }
-  .process .section-head p{ color:#C7BFA8; }
-  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:1px solid rgba(233,223,192,0.25); }
-  .step{ padding:32px 28px; border-right:1px dashed rgba(233,223,192,0.25); }
-  .step:last-child{ border-right:none; }
-  .step-num{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:#D9A98F; }
-  .step h3{ font-size:21px; color:var(--paper); margin:12px 0 8px; font-family:'Zilla Slab',serif; }
-  .step p{ color:#C7BFA8; font-size:14px; }
+  /* ---------- PRICING ---------- */
+  .pricing-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .plan{ border:1px solid var(--line); border-radius:16px; background:var(--card); padding:32px 28px; display:flex; flex-direction:column; }
+  .plan.featured{ border-color:var(--accent); box-shadow:0 20px 40px -25px rgba(140,90,59,0.5); position:relative; }
+  .plan.featured::before{ content:'MOST BOOKED'; position:absolute; top:-13px; left:28px; background:var(--accent); color:#fff; font-size:10.5px; font-weight:700; letter-spacing:0.06em; padding:5px 12px; border-radius:20px; }
+  .plan-name{ font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--body); }
+  .plan-price{ font-family:'Manrope',sans-serif; font-size:34px; font-weight:800; margin:12px 0 4px; }
+  .plan-price span{ font-size:13.5px; font-family:'Inter'; font-weight:500; color:var(--body); }
+  .plan-desc{ font-size:13.5px; color:var(--body); margin-bottom:22px; }
+  .plan ul{ list-style:none; margin-bottom:26px; flex:1; }
+  .plan li{ font-size:14px; padding:9px 0; border-top:1px solid var(--line); display:flex; gap:10px; }
+  .plan li:first-child{ border-top:none; }
+  .plan li::before{ content:'✓'; color:var(--accent); font-weight:700; flex-shrink:0; }
 
-  /* ---------- PRICING / ORDER TICKETS ---------- */
-  .pricing-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  .ticket{
-    border:2px solid var(--ink);
-    background:var(--card);
-    display:flex; flex-direction:column;
-    position:relative;
-  }
-  .ticket.featured{ background:var(--ink); color:var(--paper); }
-  .ticket.featured .plan-desc{ color:#C7BFA8; }
-  .ticket.featured .plan-name{ color:#D9A98F; }
-  .ticket.featured li{ border-color:rgba(233,223,192,0.2); }
-  .ticket-head{ padding:24px 24px 0; }
-  .plan-name{ font-family:'Special Elite', monospace; font-size:11.5px; letter-spacing:0.05em; color:var(--ink-soft); }
-  .plan-price{ font-family:'Zilla Slab', serif; font-size:34px; font-weight:700; margin:10px 0 2px; }
-  .plan-price span{ font-size:13px; font-family:'Inter'; font-weight:500; }
-  .plan-desc{ font-size:13px; color:var(--ink-soft); padding:0 24px; margin-bottom:16px; }
-  .ticket-perf{ height:14px; background-image: radial-gradient(circle at 7px 7px, var(--paper) 5.5px, transparent 6.2px); background-size:14px 14px; background-repeat:repeat-x; }
-  .ticket.featured .ticket-perf{ background-image: radial-gradient(circle at 7px 7px, var(--ink) 5.5px, transparent 6.2px); }
-  .ticket ul{ list-style:none; padding:16px 24px; flex:1; }
-  .ticket li{ font-size:13.5px; padding:8px 0; border-top:1px dashed var(--line-soft); display:flex; gap:9px; }
-  .ticket li:first-child{ border-top:none; }
-  .ticket li::before{ content:'—'; color:var(--stamp); flex-shrink:0; }
-  .ticket .btn{ margin:0 24px 24px; justify-content:center; }
+  /* ---------- CTA BAND ---------- */
+  .cta-band{ background:var(--paper-alt); border-top:1px solid var(--line); }
+  .cta-band .wrap{ display:flex; align-items:center; justify-content:space-between; padding:44px 40px; gap:24px; flex-wrap:wrap; }
+  .cta-band h3{ font-size:22px; }
+  .cta-band p{ color:var(--body); font-size:14px; margin-top:4px; }
 
-  /* ---------- FOOTER CTA / STAMP ---------- */
-  .cta{ background:var(--stamp); color:#fff; text-align:center; padding:88px 0; }
-  .cta h2{ font-size:clamp(30px,4.2vw,50px); color:#fff; max-width:15ch; margin:0 auto 24px; font-family:'Zilla Slab',serif; }
-  .cta .btn-primary{ background:#fff; color:var(--stamp); border-color:#fff; }
-  .cta .btn-primary:hover{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--ink); color:#B7B0A5; padding:70px 0 0; }
+  .footer-grid{ display:grid; grid-template-columns:1.3fr 0.8fr 0.9fr 1fr 0.8fr; gap:32px; padding-bottom:52px; border-bottom:1px solid rgba(255,255,255,0.1); }
+  .footer-logo{ display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+  .footer-logo .logo-main{ color:#fff; }
+  .footer-desc{ font-size:13.5px; line-height:1.7; max-width:32ch; margin-bottom:20px; }
+  .social-row{ display:flex; gap:10px; }
+  .social-circle{ width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; text-decoration:none; }
+  .social-circle svg{ width:14px; height:14px; color:#fff; }
+  .foot-h{ font-size:11.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff; margin-bottom:18px; }
+  .foot-links{ list-style:none; display:flex; flex-direction:column; gap:11px; font-size:13.5px; }
+  .foot-links a{ text-decoration:none; color:#B7B0A5; }
+  .foot-links a:hover{ color:#fff; }
+  .contact-item{ display:flex; gap:10px; font-size:13.5px; margin-bottom:14px; align-items:flex-start; }
+  .contact-item svg{ width:16px; height:16px; flex-shrink:0; margin-top:2px; color:#D3A57E; }
+  .foot-photo{ border-radius:10px; overflow:hidden; aspect-ratio:4/5; }
+  .foot-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .foot-bottom{ padding:22px 0; text-align:center; font-size:12.5px; color:#8B8478; }
 
-  footer{ padding:28px 0; display:flex; justify-content:space-between; align-items:center; font-size:12.5px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; }
-  footer .foot-links{ display:flex; gap:20px; }
-  footer a{ text-decoration:none; }
-  footer a:hover{ color:var(--ink); }
-
-  @media (max-width: 880px){
-    .cover-sheet{ grid-template-columns:1fr; padding:30px 24px 0; }
+  @media (max-width: 980px){
+    .hero-grid{ grid-template-columns:1fr; }
     .nav-links{ display:none; }
-    .ba-row{ grid-template-columns:1fr; }
-    .ba-arrow{ transform:rotate(90deg); margin:0 auto; }
+    .approach-grid{ grid-template-columns:repeat(2,1fr); gap:32px 0; }
+    .approach-item{ border-left:none; }
+    .showcase-grid{ grid-template-columns:1fr; }
+    .stats-grid{ grid-template-columns:repeat(2,1fr); gap:32px 16px; }
     .portfolio-grid{ grid-template-columns:repeat(2,1fr); }
-    .steps{ grid-template-columns:1fr; }
-    .step{ border-right:none; border-bottom:1px dashed rgba(233,223,192,0.25); }
+    .process-row{ flex-direction:column; gap:28px; }
+    .p-connector{ display:none; }
     .pricing-grid{ grid-template-columns:1fr; }
-    footer{ flex-direction:column; gap:12px; text-align:center; }
-    .spec-row{ flex-wrap:wrap; }
+    .footer-grid{ grid-template-columns:repeat(2,1fr); }
+    .foot-photo{ display:none; }
   }
 </style>
 </head>
@@ -313,101 +208,138 @@
 
 <header>
   <nav class="wrap">
-    <div class="logo">REEL<span>STATE</span></div>
-    <div class="nav-links">
-      <a href="#work">Spec Sheets</a>
-      <a href="#process">Process</a>
-      <a href="#pricing">Order Form</a>
+    <div class="logo">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="17,3 30,27 4,27" fill="#8C5A3B"/>
+        <polygon points="17,3 30,27 17,27" fill="#6E4429"/>
+        <polygon points="14,15 22,15 18,22" fill="#F8F6F1"/>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-main">REELSTATE</span>
+        <span class="logo-sub">VIDEO FOR LISTINGS</span>
+      </div>
     </div>
-    <a href="#pricing" class="btn btn-primary">Book a listing</a>
+    <div class="nav-links">
+      <a href="#" class="active">Home</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#pricing" class="btn btn-primary">Book a listing <span>→</span></a>
   </nav>
 </header>
 
 <section class="hero">
-  <div class="wrap">
-    <div class="cover-sheet">
-      <div class="cover-corner">NEW: VIDEO LISTINGS</div>
-      <div>
-        <div class="stamp-label">FILE NO. 001 — PHOTO TO VIDEO</div>
-        <h1>Your listings,<br><em>in motion.</em></h1>
-        <p class="lede">Send the photos already on your MLS. We turn them into scroll-stopping video walkthroughs for Reels, TikTok and YouTube — delivered in 48 hours.</p>
-        <div class="hero-ctas">
-          <a href="#pricing" class="btn btn-primary">Book a listing →</a>
-          <a href="#work" class="btn btn-ghost">See spec sheets</a>
-        </div>
-        <div class="spec-row">
-          <div class="spec-cell"><div class="spec-num">48h</div><div class="spec-label">Turnaround</div></div>
-          <div class="spec-cell"><div class="spec-num">3</div><div class="spec-label">Formats / listing</div></div>
-          <div class="spec-cell"><div class="spec-num">$0</div><div class="spec-label">Reshoot cost</div></div>
-        </div>
-        <div class="tear-tabs">
-          <div class="tab">FREE SAMPLE REEL</div>
-          <div class="tab">NO CONTRACT</div>
-          <a href="#pricing" class="tab pull">BOOK →</a>
-        </div>
-      </div>
-
-      <div>
-        <div class="listing-photo">
-          <div class="demo-badge">REEL</div>
-          <video autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;">
-            <source src="assets/transformation.mp4" type="video/mp4">
-          </video>
-          <div class="demo-info">
-            <div class="demo-price">$684,000</div>
-            <div class="demo-addr">142 WREN HOLLOW CT · 4 BD · 3 BA</div>
-          </div>
-        </div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Photo → video, no reshoot</div>
+      <h1 style="margin-top:14px;">Your listings.<br>In motion.</h1>
+      <p class="lede">We turn the photos already on your MLS into scroll-stopping video walkthroughs for Reels, TikTok and YouTube — delivered in 48 hours.</p>
+      <a href="#pricing" class="btn btn-primary">Book a listing <span>→</span></a>
+    </div>
+    <div class="hero-media">
+      <div class="hero-tag">● LIVE REEL</div>
+      <video autoplay muted loop playsinline preload="metadata">
+        <source src="assets/transformation.mp4" type="video/mp4">
+      </video>
+      <div class="hero-caption">
+        <div class="price">$684,000</div>
+        <div class="addr">142 Wren Hollow Ct · 4 bd · 3 ba</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="perf on-deep" style="margin-top:64px;"></div>
-<section class="transform">
+<section class="approach">
   <div class="wrap">
-    <div class="section-head">
-      <div class="stamp-label">EXHIBIT A — THE TRANSFORMATION</div>
-      <h2>Nothing to reshoot. Everything to gain.</h2>
-      <p>You already have what a reel needs — we just know how to move it.</p>
+    <div class="section-head center">
+      <div class="eyebrow">Why agents switch</div>
+      <div class="eyebrow-underline"></div>
+      <h2>Photos in. Reel out. Nothing else changes.</h2>
     </div>
-    <div class="ba-row">
-      <div class="ba-panel">
-        <div class="ba-tag">Step 01<b>What you send</b></div>
-        <div class="ba-thumbs">
-          <div class="ph" style="background-image:url('assets/before-interior.jpg');"></div>
-          <div class="ph" style="background-image:url('assets/before-exterior.jpg');"></div>
-          <div class="ph"></div>
-        </div>
-        <p style="margin-top:14px; font-size:13px; color:var(--ink-soft);">Your existing listing photos — phone, photographer, or MLS export.</p>
+    <div class="approach-grid">
+      <div class="approach-item">
+        <svg class="approach-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="14" width="32" height="22" rx="3"/><circle cx="24" cy="25" r="7"/><path d="M18 14l2.5-4h7l2.5 4"/></svg>
+        <h3>No reshoot needed</h3>
+        <p>We work from the photos your listing already has.</p>
       </div>
-      <div class="ba-arrow">→</div>
-      <div class="ba-panel">
-        <div class="ba-tag">Step 02<b>What you post</b></div>
-        <div class="reel-preview" style="aspect-ratio:480/644;">
-          <video autoplay muted loop playsinline preload="metadata">
-            <source src="assets/transformation.mp4" type="video/mp4">
-          </video>
-        </div>
-        <p style="margin-top:14px; font-size:13px; color:var(--ink-soft);">The same photos, blended into one smooth walkthrough — ready to post.</p>
+      <div class="approach-item">
+        <svg class="approach-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="24" r="16"/><path d="M24 15v9l6 4"/></svg>
+        <h3>48 hour turnaround</h3>
+        <p>Send photos today, post the reel by the weekend.</p>
+      </div>
+      <div class="approach-item">
+        <svg class="approach-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="10" y="10" width="12" height="12" rx="2"/><rect x="26" y="10" width="12" height="12" rx="2"/><rect x="10" y="26" width="12" height="12" rx="2"/><rect x="26" y="26" width="12" height="12" rx="2"/></svg>
+        <h3>Every format covered</h3>
+        <p>Vertical, square and widescreen, delivered together.</p>
+      </div>
+      <div class="approach-item">
+        <svg class="approach-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="8" width="30" height="32" rx="4"/><polygon points="20,18 20,30 30,24" fill="currentColor" stroke="none"/></svg>
+        <h3>Built for social</h3>
+        <p>Paced and captioned for Reels, TikTok and Shorts.</p>
       </div>
     </div>
   </div>
 </section>
-<div class="perf on-deep"></div>
+
+<section class="showcase">
+  <div class="wrap showcase-grid">
+    <div class="showcase-media">
+      <video autoplay muted loop playsinline preload="metadata">
+        <source src="assets/transformation.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="showcase-text">
+      <div class="eyebrow">Featured transformation</div>
+      <h2>Two photos. One smooth reel.</h2>
+      <p>This walkthrough started as two ordinary listing photos — an interior shot and an exterior shot. No new shoot, no drone, no gimbal. Just motion applied where it counts.</p>
+      <a href="#work" class="btn btn-ghost">See more listings <span>→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap stats-grid">
+    <div>
+      <svg class="stat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="24" r="16"/><path d="M24 15v9l6 4"/></svg>
+      <div class="stat-num">48h</div>
+      <div class="stat-label">Turnaround</div>
+    </div>
+    <div>
+      <svg class="stat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="10" y="10" width="12" height="12" rx="2"/><rect x="26" y="10" width="12" height="12" rx="2"/><rect x="10" y="26" width="12" height="12" rx="2"/><rect x="26" y="26" width="12" height="12" rx="2"/></svg>
+      <div class="stat-num">3</div>
+      <div class="stat-label">Formats / listing</div>
+    </div>
+    <div>
+      <svg class="stat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="24" r="16"/><path d="M16 16l16 16M32 16L16 32"/></svg>
+      <div class="stat-num">$0</div>
+      <div class="stat-label">Reshoot cost</div>
+    </div>
+    <div>
+      <svg class="stat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 8l4 9 10 1-7.5 7 2 10-8.5-5-8.5 5 2-10L10 18l10-1z"/></svg>
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Social-ready delivery</div>
+    </div>
+    <div>
+      <svg class="stat-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="10" y="10" width="28" height="28" rx="6"/><path d="M17 24h14M24 17v14"/></svg>
+      <div class="stat-num">24h</div>
+      <div class="stat-label">Priority option</div>
+    </div>
+  </div>
+</section>
 
 <section id="work">
   <div class="wrap">
-    <div class="section-head">
-      <div class="stamp-label">EXHIBIT B — RECENT LISTINGS</div>
-      <h2>A few properties we've put in motion.</h2>
-      <p>Every reel below started as flat photos. Swap this section for your own delivered work as it comes in.</p>
+    <div class="section-head center">
+      <div class="eyebrow">Recent work</div>
+      <div class="eyebrow-underline"></div>
+      <h2>A few listings we've put in motion.</h2>
     </div>
     <div class="portfolio-grid">
-
-      <div class="sheet">
-        <div class="listing-photo">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <div class="p-card">
+        <div class="p-media">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
             <rect width="300" height="400" fill="#2b2b26"/>
             <rect x="0" y="260" width="300" height="140" fill="#1a1a16"/>
             <rect x="40" y="60" width="220" height="200" fill="#3f3d33"/>
@@ -415,30 +347,22 @@
             <rect x="160" y="90" width="80" height="140" fill="#161611"/>
           </svg>
         </div>
-        <div class="sheet-data">
-          <div class="sheet-price">$412,500</div>
-          <div class="sheet-spec">3 BD · 2 BA · 1,840 SQFT</div>
-        </div>
+        <div class="p-body"><div class="p-price">$412,500</div><div class="p-spec">3 BD · 2 BA · 1,840 sqft</div></div>
       </div>
-
-      <div class="sheet">
-        <div class="listing-photo">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <div class="p-card">
+        <div class="p-media">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
             <rect width="300" height="400" fill="#26251f"/>
             <rect x="0" y="300" width="300" height="100" fill="#161611"/>
             <rect x="30" y="150" width="240" height="150" fill="#33322a"/>
-            <circle cx="150" cy="110" r="40" fill="#B23A2E" opacity="0.45"/>
+            <circle cx="150" cy="110" r="40" fill="#8C5A3B" opacity="0.55"/>
           </svg>
         </div>
-        <div class="sheet-data">
-          <div class="sheet-price">$899,000</div>
-          <div class="sheet-spec">5 BD · 4 BA · 3,210 SQFT</div>
-        </div>
+        <div class="p-body"><div class="p-price">$899,000</div><div class="p-spec">5 BD · 4 BA · 3,210 sqft</div></div>
       </div>
-
-      <div class="sheet">
-        <div class="listing-photo">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <div class="p-card">
+        <div class="p-media">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
             <rect width="300" height="400" fill="#2c2b25"/>
             <rect x="0" y="280" width="300" height="120" fill="#1a1a16"/>
             <rect x="20" y="200" width="90" height="100" fill="#3f3d33"/>
@@ -446,131 +370,148 @@
             <rect x="220" y="220" width="60" height="80" fill="#3f3d33"/>
           </svg>
         </div>
-        <div class="sheet-data">
-          <div class="sheet-price">$268,000</div>
-          <div class="sheet-spec">2 BD · 1 BA · 980 SQFT</div>
-        </div>
+        <div class="p-body"><div class="p-price">$268,000</div><div class="p-spec">2 BD · 1 BA · 980 sqft</div></div>
       </div>
-
-      <div class="sheet">
-        <div class="listing-photo">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+      <div class="p-card">
+        <div class="p-media">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
             <rect width="300" height="400" fill="#2b2b26"/>
             <rect x="0" y="250" width="300" height="150" fill="#1a1a16"/>
             <polygon points="30,250 150,110 270,250" fill="#3f3d33"/>
-            <rect x="130" y="170" width="40" height="80" fill="#B23A2E" opacity="0.7"/>
+            <rect x="130" y="170" width="40" height="80" fill="#8C5A3B" opacity="0.7"/>
           </svg>
         </div>
-        <div class="sheet-data">
-          <div class="sheet-price">$540,000</div>
-          <div class="sheet-spec">4 BD · 3 BA · 2,410 SQFT</div>
-        </div>
+        <div class="p-body"><div class="p-price">$540,000</div><div class="p-spec">4 BD · 3 BA · 2,410 sqft</div></div>
       </div>
-
     </div>
-    <p class="portfolio-note">— PLACEHOLDER SET. REPLACE WITH DELIVERED CLIENT REELS AS THEY COME IN. —</p>
+    <p style="margin-top:22px; font-size:13px; color:var(--body);">Placeholder set — swap for delivered client reels as they come in.</p>
   </div>
 </section>
 
-<div class="perf on-ink"></div>
 <section class="process" id="process">
   <div class="wrap">
-    <div class="section-head">
-      <div class="stamp-label">EXHIBIT C — HOW IT WORKS</div>
-      <h2>Three steps, one listing.</h2>
+    <div class="section-head center">
+      <div class="eyebrow">Our process</div>
+      <div class="eyebrow-underline"></div>
+      <h2>From photos to posted.</h2>
       <p>No calls, no site visits, no software to learn on your end.</p>
     </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
+    <div class="process-row">
+      <div class="p-step">
+        <div class="num">01</div>
+        <div class="p-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12M6 10l6-6 6 6"/><path d="M4 20h16"/></svg></div>
         <h3>Send the photos</h3>
-        <p>Upload the listing's existing photos and the basics — price, address, beds, baths.</p>
+        <p>Upload the listing's photos plus price, address, beds and baths.</p>
       </div>
-      <div class="step">
-        <div class="step-num">02</div>
+      <div class="p-connector"></div>
+      <div class="p-step">
+        <div class="num">02</div>
+        <div class="p-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20L20 4M9 4H4v5M15 20h5v-5"/></svg></div>
         <h3>We cut the reel</h3>
-        <p>Motion, pacing, your branding and captions applied to a template built for real estate.</p>
+        <p>Motion, pacing and your branding applied to a real estate template.</p>
       </div>
-      <div class="step">
-        <div class="step-num">03</div>
+      <div class="p-connector"></div>
+      <div class="p-step">
+        <div class="num">03</div>
+        <div class="p-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4z"/></svg></div>
         <h3>You post it</h3>
-        <p>Three formats delivered — vertical, square and widescreen — ready within 48 hours.</p>
+        <p>Three formats delivered, ready within 48 hours.</p>
       </div>
     </div>
   </div>
 </section>
-<div class="perf" style="background-image:radial-gradient(circle at 8px 8px, var(--paper) 6.5px, transparent 7.2px);"></div>
 
 <section id="pricing">
   <div class="wrap">
-    <div class="section-head">
-      <div class="stamp-label">EXHIBIT D — ORDER FORM</div>
+    <div class="section-head center">
+      <div class="eyebrow">Pricing</div>
+      <div class="eyebrow-underline"></div>
       <h2>Pick a rhythm that fits your pipeline.</h2>
-      <p>Pay per listing while you test us, or lock in a monthly rate once it's working.</p>
     </div>
     <div class="pricing-grid">
-      <div class="ticket">
-        <div class="ticket-head">
-          <div class="plan-name">TICKET NO. 01 — PER LISTING</div>
-          <div class="plan-price">$95<span>/ listing</span></div>
-        </div>
+      <div class="plan">
+        <div class="plan-name">Per listing</div>
+        <div class="plan-price">$95<span>/ listing</span></div>
         <p class="plan-desc">For agents who want to try it on one property first.</p>
-        <div class="ticket-perf"></div>
-        <ul>
-          <li>1 vertical + 1 square reel</li>
-          <li>Price &amp; spec overlay</li>
-          <li>48 hour delivery</li>
-        </ul>
-        <a href="#" class="btn btn-ghost">Book one listing</a>
+        <ul><li>1 vertical + 1 square reel</li><li>Price &amp; spec overlay</li><li>48 hour delivery</li></ul>
+        <a href="#contact" class="btn btn-ghost">Book one listing</a>
       </div>
-      <div class="ticket featured">
-        <div class="ticket-head">
-          <div class="plan-name">TICKET NO. 02 — MOST BOOKED</div>
-          <div class="plan-price">$449<span>/ month</span></div>
-        </div>
+      <div class="plan featured">
+        <div class="plan-name">Monthly retainer</div>
+        <div class="plan-price">$449<span>/ month</span></div>
         <p class="plan-desc">For agents listing 4+ properties a month.</p>
-        <div class="ticket-perf"></div>
-        <ul>
-          <li>Up to 6 listings / month</li>
-          <li>All 3 formats, every listing</li>
-          <li>Your logo &amp; brand colors</li>
-          <li>Priority 24 hour delivery</li>
-        </ul>
-        <a href="#" class="btn btn-primary" style="background:var(--paper); color:var(--ink); border-color:var(--paper);">Start retainer</a>
+        <ul><li>Up to 6 listings / month</li><li>All 3 formats, every listing</li><li>Your logo &amp; brand colors</li><li>Priority 24 hour delivery</li></ul>
+        <a href="#contact" class="btn btn-primary">Start retainer</a>
       </div>
-      <div class="ticket">
-        <div class="ticket-head">
-          <div class="plan-name">TICKET NO. 03 — WHITE LABEL</div>
-          <div class="plan-price">Custom</div>
-        </div>
+      <div class="plan">
+        <div class="plan-name">White label</div>
+        <div class="plan-price">Custom</div>
         <p class="plan-desc">For brokerages and agencies reselling to agents.</p>
-        <div class="ticket-perf"></div>
-        <ul>
-          <li>Bulk listing volume</li>
-          <li>Delivered under your brand</li>
-          <li>Dedicated turnaround SLA</li>
-        </ul>
-        <a href="#" class="btn btn-ghost">Talk pricing</a>
+        <ul><li>Bulk listing volume</li><li>Delivered under your brand</li><li>Dedicated turnaround SLA</li></ul>
+        <a href="#contact" class="btn btn-ghost">Talk pricing</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta">
+<div class="cta-band" id="contact">
   <div class="wrap">
-    <div class="stamp-label" style="justify-content:center; color:rgba(255,255,255,0.85);">FILE READY FOR PICKUP</div>
-    <h2>Send us the photos. Post the reel by Friday.</h2>
-    <a href="mailto:hello@reelstate.co" class="btn btn-primary">Book your first listing →</a>
+    <div>
+      <h3>Ready to send your first listing?</h3>
+      <p>Reply within 48 hours with a reel ready to post.</p>
+    </div>
+    <a href="mailto:hello@reelstate.co" class="btn btn-primary">Book a listing <span>→</span></a>
   </div>
-</section>
+</div>
 
-<footer class="wrap">
-  <div>© 2026 REELSTATE — LISTING PHOTOS, IN MOTION</div>
-  <div class="foot-links">
-    <a href="#work">Spec Sheets</a>
-    <a href="#process">Process</a>
-    <a href="#pricing">Order Form</a>
-    <a href="mailto:hello@reelstate.co">hello@reelstate.co</a>
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg width="30" height="30" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="17,3 30,27 4,27" fill="#8C5A3B"/>
+            <polygon points="17,3 30,27 17,27" fill="#6E4429"/>
+            <polygon points="14,15 22,15 18,22" fill="#211E1A"/>
+          </svg>
+          <span class="logo-main">REELSTATE</span>
+        </div>
+        <p class="footer-desc">We turn the listing photos you already have into video reels agents actually post.</p>
+        <div class="social-row">
+          <a class="social-circle" href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+          <a class="social-circle" href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4v9.5a3.5 3.5 0 1 1-3-3.46"/><path d="M14 4c.6 2.2 2.2 3.8 4.5 4"/></svg></a>
+          <a class="social-circle" href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="12" rx="3"/><polygon points="10,9.5 10,14.5 15,12" fill="currentColor" stroke="none"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-h">Quick links</div>
+        <ul class="foot-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-h">Services</div>
+        <ul class="foot-links">
+          <li><a href="#">Real estate reels</a></li>
+          <li><a href="#">Multi-format delivery</a></li>
+          <li><a href="#">Monthly retainers</a></li>
+          <li><a href="#">White label</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-h">Contact us</div>
+        <div class="contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>hello@reelstate.co</span></div>
+        <div class="contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>Mon – Sat, 9am – 7pm</span></div>
+        <div class="contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.4"/></svg><span>Remote — serving agents nationwide</span></div>
+      </div>
+      <div class="foot-photo">
+        <img src="assets/before-interior.jpg" alt="Listing interior">
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 Reelstate. All rights reserved.</div>
   </div>
 </footer>
 
